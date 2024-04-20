@@ -17,6 +17,12 @@
   },
   "homepage": "https://github.com/toxoxi/TDD-by-example#readme",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-typescript": "^7.24.1",
+    "@jest/globals": "^29.7.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.4.5"
   }
 }
