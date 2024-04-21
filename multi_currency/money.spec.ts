@@ -13,7 +13,8 @@
  * [ ] Dollar と Franc の重複
  * [x] equals の一般化
  * [ ] times の一般化
- * [ ] Franc と Dollar を比較する
+ * [x] Franc と Dollar を比較する
+ * [ ] 通貨の概念
  */
 
 import { describe, expect, test } from "@jest/globals";
@@ -44,6 +45,12 @@ describe("Money", () => {
     test("equality", () => {
       expect(new Franc(5).equals(new Franc(5))).toBe(true);
       expect(new Franc(5).equals(new Franc(6))).toBe(false);
+    });
+  });
+
+  describe("Cross-currency", () => {
+    test("equality", () => {
+      expect(new Dollar(10).equals(new Franc(10))).toBe(false);
     });
   });
 });
