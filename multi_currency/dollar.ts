@@ -1,15 +1,15 @@
 export default class Dollar {
-  public amount: number;
+  #amount: number;
 
   constructor(amount: number) {
-    this.amount = amount;
+    this.#amount = amount;
   }
 
   times(multiplier: number): Dollar {
-    return new Dollar(this.amount * multiplier);
+    return new Dollar(this.#amount * multiplier);
   }
 
   equals(obj: Dollar) {
-    return this.amount === obj.amount;
+    return this.#amount === obj.#amount;
   }
 }
