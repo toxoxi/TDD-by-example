@@ -1,4 +1,4 @@
-import { Money } from "./money";
+import Money from "./money";
 
 export default class Dollar extends Money {
   constructor(amount: number) {
@@ -6,7 +6,7 @@ export default class Dollar extends Money {
     this.amount = amount;
   }
 
-  times(multiplier: number): Dollar {
+  times(multiplier: number): Money {
     return new Dollar(this.amount * multiplier);
   }
 }

@@ -18,39 +18,38 @@
  */
 
 import { describe, expect, test } from "@jest/globals";
-import Dollar from "./dollar";
-import Franc from "./franc";
+import Money from "./money";
 
 describe("Money", () => {
   describe("Dollar class", () => {
     test("multiplication", () => {
-      const five = new Dollar(5);
-      expect(five.times(2).equals(new Dollar(10))).toBe(true);
-      expect(five.times(3).equals(new Dollar(15))).toBe(true);
+      const five = Money.dollar(5);
+      expect(five.times(2).equals(Money.dollar(10))).toBe(true);
+      expect(five.times(3).equals(Money.dollar(15))).toBe(true);
     });
 
     test("equality", () => {
-      expect(new Dollar(5).equals(new Dollar(5))).toBe(true);
-      expect(new Dollar(5).equals(new Dollar(6))).toBe(false);
+      expect(Money.dollar(5).equals(Money.dollar(5))).toBe(true);
+      expect(Money.dollar(5).equals(Money.dollar(6))).toBe(false);
     });
   });
 
   describe("Franc class", () => {
     test("multiplication", () => {
-      const five = new Franc(5);
-      expect(five.times(2).equals(new Franc(10))).toBe(true);
-      expect(five.times(3).equals(new Franc(15))).toBe(true);
+      const five = Money.franc(5);
+      expect(five.times(2).equals(Money.franc(10))).toBe(true);
+      expect(five.times(3).equals(Money.franc(15))).toBe(true);
     });
 
     test("equality", () => {
-      expect(new Franc(5).equals(new Franc(5))).toBe(true);
-      expect(new Franc(5).equals(new Franc(6))).toBe(false);
+      expect(Money.franc(5).equals(Money.franc(5))).toBe(true);
+      expect(Money.franc(5).equals(Money.franc(6))).toBe(false);
     });
   });
 
   describe("Cross-currency", () => {
     test("equality", () => {
-      expect(new Dollar(10).equals(new Franc(10))).toBe(false);
+      expect(Money.dollar(10).equals(Money.franc(10))).toBe(false);
     });
   });
 });
