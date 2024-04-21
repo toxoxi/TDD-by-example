@@ -11,8 +11,9 @@
  * [ ] 他のオブジェクトとの等価性比較
  * [x] 5CHF * 2 = 10CHF
  * [ ] Dollar と Franc の重複
- * [ ] equals の一般化
+ * [x] equals の一般化
  * [ ] times の一般化
+ * [ ] Franc と Dollar を比較する
  */
 
 import { describe, expect, test } from "@jest/globals";
@@ -38,6 +39,11 @@ describe("Money", () => {
       const five = new Franc(5);
       expect(five.times(2).equals(new Franc(10))).toBe(true);
       expect(five.times(3).equals(new Franc(15))).toBe(true);
+    });
+
+    test("equality", () => {
+      expect(new Franc(5).equals(new Franc(5))).toBe(true);
+      expect(new Franc(5).equals(new Franc(6))).toBe(false);
     });
   });
 });
