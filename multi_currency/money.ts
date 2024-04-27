@@ -3,6 +3,8 @@ import Franc from "./franc";
 
 export default abstract class Money {
   protected amount: number;
+
+  abstract currency(): string;
   abstract times(multiplier: number): Money;
 
   equals(money: Money) {

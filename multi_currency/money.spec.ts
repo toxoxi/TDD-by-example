@@ -14,13 +14,19 @@
  * [x] equals の一般化
  * [ ] times の一般化
  * [x] Franc と Dollar を比較する
- * [ ] 通貨の概念
+ * [x] 通貨の概念
+ * [ ] testFrancMultiplication を削除する？
  */
 
 import { describe, expect, test } from "@jest/globals";
 import Money from "./money";
 
 describe("Money", () => {
+  test("currency", () => {
+    expect(Money.dollar(1).currency()).toBe("USD");
+    expect(Money.franc(1).currency()).toBe("CHF");
+  });
+
   describe("Dollar class", () => {
     test("multiplication", () => {
       const five = Money.dollar(5);

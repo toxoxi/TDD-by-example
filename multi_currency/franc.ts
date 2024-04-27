@@ -6,6 +6,10 @@ export default class Franc extends Money {
     this.amount = amount;
   }
 
+  currency(): string {
+    return "CHF";
+  }
+
   times(multiplier: number): Money {
     return new Franc(this.amount * multiplier);
   }
