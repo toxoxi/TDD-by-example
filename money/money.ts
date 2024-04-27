@@ -1,6 +1,8 @@
+import { Expression } from "./expression";
+
 type Currency = "USD" | "CHF";
 
-export default class Money {
+export class Money {
   protected amount: number;
   protected _currency: Currency;
 
@@ -15,6 +17,10 @@ export default class Money {
 
   times(multiplier: number): Money {
     return new Money(this.amount * multiplier, this._currency);
+  }
+
+  plus(added: Money): Expression {
+    return new Money(this.amount + added.amount, this._currency);
   }
 
   equals(money: Money): boolean {

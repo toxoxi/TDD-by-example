@@ -1,25 +1,16 @@
 /**
  * TODOリスト
  * [ ] $5 + 10 CHF = $10 (レートが 2:1 の場合)
- * [x] $5 * 2 = $10
- * [x] amount を private にする
- * [x] Dollar の副作用どうする？
+ * [ ] $5 + $5 = $10
  * [ ] Money の丸め処理どうする？
- * [x] equals()
  * [ ] hashCode()
  * [ ] null の等価性比較
  * [ ] 他のオブジェクトとの等価性比較
- * [x] 5CHF * 2 = 10CHF
- * [ ] Dollar と Franc の重複
- * [x] equals の一般化
- * [x] times の一般化
- * [x] Franc と Dollar を比較する
- * [x] 通貨の概念
- * [ ] testFrancMultiplication を削除する？
  */
 
 import { describe, expect, test } from "@jest/globals";
-import Money from "./money";
+import { Money } from "./money";
+import { Bank } from "./bank";
 
 describe("Money", () => {
   test("currency", () => {
@@ -37,5 +28,13 @@ describe("Money", () => {
     const five = Money.dollar(5);
     expect(five.times(2).equals(Money.dollar(10))).toBe(true);
     expect(five.times(3).equals(Money.dollar(15))).toBe(true);
+  });
+
+  test("addition", () => {
+    const five = Money.dollar(5);
+    const sum = five.plus(five);
+    const bank = new Bank();
+    const reduced = bank.reduce(sum, "USD");
+    expect(reduced.equals(Money.dollar(10))).toBe(true);
   });
 });
