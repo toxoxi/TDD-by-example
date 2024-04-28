@@ -1,14 +1,19 @@
 import { Expression } from "./expression";
+import { Sum } from "./sum";
 
-type Currency = "USD" | "CHF";
+export type Currency = "USD" | "CHF";
 
-export class Money {
+export class Money implements Expression {
   protected amount: number;
   protected _currency: Currency;
 
   constructor(amount: number, currency: Currency) {
     this.amount = amount;
     this._currency = currency;
+  }
+
+  getAmount() {
+    return this.amount;
   }
 
   currency() {
@@ -19,8 +24,12 @@ export class Money {
     return new Money(this.amount * multiplier, this._currency);
   }
 
-  plus(added: Money): Expression {
-    return new Money(this.amount + added.amount, this._currency);
+  plus(addend: Money): Expression {
+    return new Sum(this, addend);
+  }
+
+  reduce(to: Currency) {
+    return this;
   }
 
   equals(money: Money): boolean {
