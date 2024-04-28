@@ -1,9 +1,11 @@
 /**
  * TODOリスト
  * [ ] $5 + 10 CHF = $10 (レートが 2:1 の場合)
- * [ ] $5 + $5 = $10
+ * [x] $5 + $5 = $10
  * [ ] $5 + $5 が Money を返す
  * [x] Bank.reduce(Money)
+ * [x] Money を変換して換算を行う
+ * [ x Reduce(Bank, string)
  * [ ] Money の丸め処理どうする？
  * [ ] hashCode()
  * [ ] null の等価性比較
@@ -15,6 +17,7 @@ import { Money } from "./money";
 import { Bank } from "./bank";
 import { Expression } from "./expression";
 import { Sum } from "./sum";
+import { RatesMap } from "./ratesMap";
 
 describe("Money", () => {
   test("getAmount", () => {
@@ -65,5 +68,27 @@ describe("Money", () => {
     const bank = new Bank();
     const result = bank.reduce(Money.dollar(1), "USD");
     expect(result.equals(Money.dollar(1)));
+  });
+
+  test("reduce Money different Currency", () => {
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const result = bank.reduce(Money.franc(2), "USD");
+    expect(result.equals(Money.dollar(1))).toBe(true);
+  });
+});
+
+describe("RatesMap", () => {
+  test("set and get rate with rateKeys object", () => {
+    const rates = new RatesMap();
+    rates.set({ from: "CHF", to: "USD" }, 2);
+    const CHFtoUSD = rates.get({ from: "CHF", to: "USD" });
+    expect(CHFtoUSD).toBe(2);
+
+    const USDtoUSD = rates.get({ from: "USD", to: "USD" });
+    expect(USDtoUSD).toBe(1);
+
+    const USDtoCHF = rates.get({ from: "USD", to: "CHF" });
+    expect(USDtoCHF).toBe(undefined);
   });
 });
