@@ -11,7 +11,7 @@ export class Sum implements Expression {
   }
 
   reduce(to: Currency) {
-    const amount = this.augend.getAmount() + this.addend.getAmount();
+    const amount = this.augend.amount() + this.addend.amount();
     return new Money(amount, to);
   }
 }

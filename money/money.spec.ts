@@ -18,7 +18,7 @@ import { Sum } from "./sum";
 
 describe("Money", () => {
   test("getAmount", () => {
-    expect(Money.dollar(10).getAmount()).toBe(10);
+    expect(Money.dollar(10).amount()).toBe(10);
   });
 
   test("currency", () => {

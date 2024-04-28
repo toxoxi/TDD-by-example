@@ -4,24 +4,24 @@ import { Sum } from "./sum";
 export type Currency = "USD" | "CHF";
 
 export class Money implements Expression {
-  protected amount: number;
-  protected _currency: Currency;
+  #amount: number;
+  #currency: Currency;
 
   constructor(amount: number, currency: Currency) {
-    this.amount = amount;
-    this._currency = currency;
+    this.#amount = amount;
+    this.#currency = currency;
   }
 
-  getAmount() {
-    return this.amount;
+  amount() {
+    return this.#amount;
   }
 
   currency() {
-    return this._currency;
+    return this.#currency;
   }
 
   times(multiplier: number): Money {
-    return new Money(this.amount * multiplier, this._currency);
+    return new Money(this.#amount * multiplier, this.#currency);
   }
 
   plus(addend: Money): Expression {
@@ -33,7 +33,9 @@ export class Money implements Expression {
   }
 
   equals(money: Money): boolean {
-    return this.amount === money.amount && this._currency === money.currency();
+    return (
+      this.#amount === money.#amount && this.#currency === money.currency()
+    );
   }
 
   static dollar(amount: number): Money {
