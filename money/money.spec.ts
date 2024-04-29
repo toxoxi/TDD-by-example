@@ -1,15 +1,17 @@
 /**
  * TODOリスト
- * [ ] $5 + 10 CHF = $10 (レートが 2:1 の場合)
+ * [x] $5 + 10 CHF = $10 (レートが 2:1 の場合)
  * [x] $5 + $5 = $10
  * [ ] $5 + $5 が Money を返す
  * [x] Bank.reduce(Money)
  * [x] Money を変換して換算を行う
- * [ x Reduce(Bank, string)
+ * [x] Reduce(Bank, string)
  * [ ] Money の丸め処理どうする？
  * [ ] hashCode()
  * [ ] null の等価性比較
  * [ ] 他のオブジェクトとの等価性比較
+ *
+ * [ ] Expression の等価性比較
  */
 
 import { describe, expect, test } from "@jest/globals";
@@ -37,8 +39,8 @@ describe("Money", () => {
 
   test("multiplication", () => {
     const five = Money.dollar(5);
-    expect(five.times(2).equals(Money.dollar(10))).toBe(true);
-    expect(five.times(3).equals(Money.dollar(15))).toBe(true);
+    expect((five.times(2) as Money).equals(Money.dollar(10))).toBe(true);
+    expect((five.times(3) as Money).equals(Money.dollar(15))).toBe(true);
   });
 
   test("addition", () => {
@@ -75,6 +77,16 @@ describe("Money", () => {
     bank.addRate("CHF", "USD", 2);
     const result = bank.reduce(Money.franc(2), "USD");
     expect(result.equals(Money.dollar(1))).toBe(true);
+  });
+
+  test("mixed addition", () => {
+    const fiveBucks: Expression = Money.dollar(5);
+    const tenFrancs: Expression = Money.franc(10);
+    const bank = new Bank();
+    bank.addRate("CHF", "USD", 2);
+    const result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+    expect(result.amount()).toBe(10);
+    expect(result.equals(Money.dollar(10))).toBe(true);
   });
 });
 
