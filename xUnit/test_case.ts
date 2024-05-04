@@ -6,10 +6,12 @@ export class TestCase {
   }
 
   setUp() {}
+  tearDown() {}
 
   run() {
     this.setUp();
     const method: Function = (this as any)[this.name];
     method();
+    this.tearDown();
   }
 }

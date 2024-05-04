@@ -6,6 +6,8 @@
  * [ ] テストメソッドが失敗したとしても tearDown を呼び出す
  * [ ] 複数のテストを走らせる
  * [ ] 収集したテスト結果を出力する
+ * [x] WasRun で文字列をログに記録する
+ * [ ] 収集したテスト結果を出力する
  *
  * [ ] 存在しないメソッド名の testcase を作れないようにする
  */
@@ -15,27 +17,12 @@ import { WasRun } from "./was_run";
 import { TestCase } from "./test_case";
 
 class TestCaseTest extends TestCase {
-  private test: WasRun | null;
-
-  constructor(name: string) {
-    super(name);
-    this.test = null;
+  testTemplateMethod() {
+    const test = new WasRun("testMethod");
+    test.run();
+    assert("setUp testMethod tearDown " === test.log);
   }
-
-  setUp() {
-    this.test = new WasRun("testMethod");
-  }
-
-  testRunning = () => {
-    this.test!.run();
-    assert(this.test!.wasRun);
-  };
-
-  testSetup = () => {
-    this.test!.run();
-    assert(this.test!.wasSetup);
-  };
 }
 
-new TestCaseTest("testRunning").run();
-new TestCaseTest("testSetup").run();
+new TestCaseTest("testTemplateMethod").run();
+console.log("✅ tests passed!");
